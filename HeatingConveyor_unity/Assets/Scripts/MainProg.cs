@@ -4,6 +4,12 @@ using UnityEngine;
 using S7.Net;
 using System;
 
+using UnityEngine;
+using S7.Net;
+
+
+
+
 public class MainProg : MonoBehaviour
 
 {
