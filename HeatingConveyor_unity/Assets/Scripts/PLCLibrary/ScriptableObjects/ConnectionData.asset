@@ -16,3 +16,4 @@ MonoBehaviour:
   ip: 127.0.0.1
   rack: 0
   slot: 1
+  updateTime: 0.5

@@ -19,6 +19,7 @@ public class PLCDispatcher : MonoBehaviour
 
     private void Awake()
     {
+        return;
         if (conectionData == null)
         {
             Debug.LogError("[PLC] Укажите настройки подключения");
