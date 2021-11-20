@@ -1,6 +1,7 @@
 ﻿using S7.Net;
 using S7.Net.Types;
 
+using System;
 using System.Collections;
 using System.Collections.Generic;
 using System.Linq;
@@ -27,7 +28,7 @@ public class PLCDispatcher : MonoBehaviour
         }
 
         plc = CreatePlc(conectionData);
-        plc.Open();
+        //plc.Open();
 
         var keys = new HashSet<int>();
         foreach (var receive in receiveData)
@@ -57,11 +58,17 @@ public class PLCDispatcher : MonoBehaviour
         while (true)
         {
             yield return delay;
-            plc.ReadMultipleVars(keys);
-
-            foreach(var key in keys)
+            try
             {
-                sceneReceiveDependency[key].ChangeState(key.Value);
+                foreach (var key in keys)
+                {
+                    var value = plc.Read(key.DataType,key.DB,key.StartByteAdr,key.VarType,key.Count);
+                    sceneReceiveDependency[key].ChangeState(value);
+                }
+            }
+            catch (Exception e)
+            {
+                Debug.Log(e);
             }
         }
     }
