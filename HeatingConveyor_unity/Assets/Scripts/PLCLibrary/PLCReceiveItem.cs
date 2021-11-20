@@ -17,7 +17,7 @@ public class PLCReceiveItemGeneric<T> : PLCReceiveItem where T : struct, IEquata
         if (value != null)
         {
             var tempValue = (T)value;
-            if (EqualityComparer<T>.Default.Equals(tempValue, _value_t))
+            if (!EqualityComparer<T>.Default.Equals(tempValue, _value_t))
             {
                 _value_t = tempValue;
                 OnGenericValueReceive?.Invoke(tempValue);
