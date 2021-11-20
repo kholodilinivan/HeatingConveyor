@@ -36,7 +36,7 @@ public class PLCDispatcher : MonoBehaviour
             if (!keys.Contains(hash))
             {
                 keys.Add(hash);
-                var key = receive.data.ToDataItem(null);
+                var key = receive.data.ToDataItem();
                 sceneReceiveDependency.Add(key, receive);
             }
         }
@@ -68,7 +68,7 @@ public class PLCDispatcher : MonoBehaviour
 
     public void Send(object? value, PLCDataItem dataItem)
     {
-        plc.Write(dataItem.ToDataItem(value));
+        plc.Write(dataItem.ToDataItem());
     }
 
     private Plc CreatePlc(PLCConnectData data)

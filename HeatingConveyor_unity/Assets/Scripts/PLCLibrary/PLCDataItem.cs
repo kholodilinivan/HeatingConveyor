@@ -45,6 +45,18 @@ public class PLCDataItem : ScriptableObject
         return hashCode;
     }
 
+    public DataItem ToDataItem()
+    {
+        var dataItem = new DataItem();
+        dataItem.DataType = DataType;
+        dataItem.BitAdr = BitAdr;
+        dataItem.Count = Count;
+        dataItem.DB = DB;
+        dataItem.StartByteAdr = StartByteAdr;
+        dataItem.VarType = VarType;
+        return dataItem;
+    }
+
     public DataItem ToDataItem(object? value)
     {
         var dataItem = new DataItem();
