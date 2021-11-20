@@ -68,7 +68,7 @@ public class PLCDispatcher : MonoBehaviour
 
     public void Send(object? value, PLCDataItem dataItem)
     {
-        plc.Write(dataItem.ToDataItem());
+        plc.Write(dataItem.ToDataItem(value));
     }
 
     private Plc CreatePlc(PLCConnectData data)
