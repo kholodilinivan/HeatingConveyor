@@ -12,7 +12,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 3a65f79a2fffdd741a14d0dc0717dea7, type: 3}
   m_Name: ConnectionData
   m_EditorClassIdentifier: 
-  cpuType: 0
+  cpuType: 30
   ip: 127.0.0.1
   rack: 0
   slot: 1

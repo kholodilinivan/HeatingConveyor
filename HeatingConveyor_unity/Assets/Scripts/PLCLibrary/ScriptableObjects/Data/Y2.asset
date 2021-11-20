@@ -12,7 +12,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 0150e05cebc559f478dd7442db163e72, type: 3}
   m_Name: Y2
   m_EditorClassIdentifier: 
-  DataType: 129
+  DataType: 132
   VarType: 0
   DB: 1
   StartByteAdr: 0
