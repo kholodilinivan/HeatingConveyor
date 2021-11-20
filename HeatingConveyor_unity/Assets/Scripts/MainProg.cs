@@ -48,6 +48,8 @@ public class MainProg : MonoBehaviour
             GameObject.Find("ImageY1").GetComponent<ImageChanger>().Off();
         }
 
+        // Debug.Log("DB1.DBX0.0: " + y1);
+
         // Y2 - open front door
         bool y2 = (bool)plc.Read("DB1.DBX0.1");
         if (y2 == true)
@@ -143,24 +145,24 @@ public class MainProg : MonoBehaviour
         // the front door is open
         if (x2 == true)
         {
-            plc.Write("DB1.DBX0.8", true);
+            plc.Write("DB1.DBX1.0", true);
             GameObject.Find("ImageX2").GetComponent<ImageChanger>().On();
         }
         else
         {
-            plc.Write("DB1.DBX0.8", false);
+            plc.Write("DB1.DBX1.0", false);
             GameObject.Find("ImageX2").GetComponent<ImageChanger>().Off();
         }
 
         // the front door is closed
         if (x3 == true)
         {
-            plc.Write("DB1.DBX0.9", true);
+            plc.Write("DB1.DBX1.1", true);
             GameObject.Find("ImageX3").GetComponent<ImageChanger>().On();
         }
         else
         {
-            plc.Write("DB1.DBX0.9", false);
+            plc.Write("DB1.DBX1.1", false);
             GameObject.Find("ImageX3").GetComponent<ImageChanger>().Off();
         }
 
@@ -168,36 +170,36 @@ public class MainProg : MonoBehaviour
         // the back door is open
         if (x4 == true)
         {
-            plc.Write("DB1.DBX0.10", true);
+            plc.Write("DB1.DBX1.2", true);
             GameObject.Find("ImageX4").GetComponent<ImageChanger>().On();
         }
         else
         {
-            plc.Write("DB1.DBX0.10", false);
+            plc.Write("DB1.DBX1.2", false);
             GameObject.Find("ImageX4").GetComponent<ImageChanger>().Off();
         }
 
         // the back door is closed
         if (x5 == true)
         {
-            plc.Write("DB1.DBX0.11", true);
+            plc.Write("DB1.DBX1.3", true);
             GameObject.Find("ImageX5").GetComponent<ImageChanger>().On();
         }
         else
         {
-            plc.Write("DB1.DBX0.11", false);
+            plc.Write("DB1.DBX1.3", false);
             GameObject.Find("ImageX5").GetComponent<ImageChanger>().Off();
         }
 
         // the temmperature is 100C
         if (x7 == true)
         {
-            plc.Write("DB1.DBX0.12", true);
+            plc.Write("DB1.DBX1.4", true);
             GameObject.Find("ImageX7").GetComponent<ImageChanger>().On();
         }
         else
         {
-            plc.Write("DB1.DBX0.12", false);
+            plc.Write("DB1.DBX1.4", false);
             GameObject.Find("ImageX7").GetComponent<ImageChanger>().Off();
         }
     }

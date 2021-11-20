@@ -15,6 +15,6 @@ MonoBehaviour:
   DataType: 130
   VarType: 0
   DB: 1
-  StartByteAdr: 0
-  BitAdr: 9
+  StartByteAdr: 1
+  BitAdr: 1
   Count: 0
