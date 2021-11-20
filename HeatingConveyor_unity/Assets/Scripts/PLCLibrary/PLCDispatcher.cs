@@ -28,7 +28,7 @@ public class PLCDispatcher : MonoBehaviour
         }
 
         plc = CreatePlc(conectionData);
-        //plc.Open();
+        plc.Open();
 
         var keys = new HashSet<int>();
         foreach (var receive in receiveData)
