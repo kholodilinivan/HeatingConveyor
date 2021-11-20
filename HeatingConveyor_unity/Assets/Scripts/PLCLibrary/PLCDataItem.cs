@@ -54,6 +54,26 @@ public class PLCDataItem : ScriptableObject
         dataItem.DB = DB;
         dataItem.StartByteAdr = StartByteAdr;
         dataItem.VarType = VarType;
+
+        switch (dataItem.VarType)
+        {
+            case VarType.Bit:
+                dataItem.Value = false;
+                break;
+            case VarType.Byte:
+                dataItem.Value = (byte)0;
+                break;
+            case VarType.Int:
+                dataItem.Value = 0;
+                break;
+            case VarType.Real:
+                dataItem.Value = 0f;
+                break;
+            case VarType.String:
+                dataItem.Value = "";
+                break;
+        }
+
         return dataItem;
     }
 
