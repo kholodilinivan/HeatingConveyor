@@ -5,8 +5,8 @@ using UnityEngine;
 
 public class PLCSendItem : MonoBehaviour
 {
-    public PLCDataItem data;
-    public event Action<object?, PLCDataItem> OnValueChange;
+    public string data;
+    public event Action<object?, string> OnValueChange;
 
     public void ChangeState(object? value)
     {

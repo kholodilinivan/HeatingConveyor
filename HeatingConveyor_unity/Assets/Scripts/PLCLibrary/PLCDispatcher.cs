@@ -1,5 +1,4 @@
 ﻿using S7.Net;
-using S7.Net.Types;
 
 using System;
 using System.Collections;
@@ -15,21 +14,21 @@ public class PLCDispatcher : MonoBehaviour
     public List<PLCReceiveItem> receiveData = new List<PLCReceiveItem>();
     public List<PLCSendItem> sendData = new List<PLCSendItem>();
 
-    private Dictionary<DataItem, PLCReceiveItem> sceneReceiveDependency = new Dictionary<DataItem, PLCReceiveItem>();
+    private Dictionary<string, PLCReceiveItem> sceneReceiveDependency = new Dictionary<string, PLCReceiveItem>();
     private Plc plc;
 
     private void Awake()
     {
-        // return;
         if (conectionData == null)
         {
-            Debug.LogError("[PLC] Укажите настройки подключения");
+            Debug.LogError("[PLC] Incorrect connectionData");
             return;
         }
 
         plc = CreatePlc(conectionData);
         plc.Open();
 
+        //Registrate all receive data
         var keys = new HashSet<int>();
         foreach (var receive in receiveData)
         {
@@ -37,20 +36,23 @@ public class PLCDispatcher : MonoBehaviour
             if (!keys.Contains(hash))
             {
                 keys.Add(hash);
-                var key = receive.data.ToDataItem();
+                var key = receive.data;
+                Debug.Log($"Regitrate {key}");
                 sceneReceiveDependency.Add(key, receive);
             }
         }
 
+        //Subscribe on change sendData
         foreach (var send in sendData)
         {
             send.OnValueChange += Send;
         }
 
-        StartCoroutine(UpdateLoop(conectionData.updateTime));
+        //Start ReceiveLoop
+        StartCoroutine(ReceiveLoop(conectionData.updateTime));
     }
 
-    IEnumerator UpdateLoop(float time)
+    IEnumerator ReceiveLoop(float time)
     {
         var delay = new WaitForSeconds(time);
         var keys = sceneReceiveDependency.Keys.ToList();
@@ -62,7 +64,9 @@ public class PLCDispatcher : MonoBehaviour
             {
                 foreach (var key in keys)
                 {
-                    var value = plc.Read(key.DataType,key.DB,key.StartByteAdr,key.VarType,key.Count);
+                    var value = plc.Read(key);
+                    Debug.Log($"Receive: {key} = {value}");
+                    //Change values on scene
                     sceneReceiveDependency[key].ChangeState(value);
                 }
             }
@@ -73,14 +77,20 @@ public class PLCDispatcher : MonoBehaviour
         }
     }
 
-    public void Send(object? value, PLCDataItem dataItem)
+    public void Send(object? value, string dataItem)
     {
-        plc.Write(dataItem.ToDataItem(value));
+        Debug.Log($"value send {dataItem} = {value}");
+        plc.Write(dataItem, value);
     }
 
     private Plc CreatePlc(PLCConnectData data)
     {
-        return new Plc(conectionData.cpuType, conectionData.ip, conectionData.rack, conectionData.slot);
+        Debug.Log($"TryConnectTo");
+        Debug.Log($"{data.cpuType}");
+        Debug.Log($"{data.ip}");
+        Debug.Log($"{data.rack}");
+        Debug.Log($"{data.slot}");
+        return new Plc(data.cpuType, data.ip, data.rack, data.slot);
     }
 
     public void Close()

@@ -16,11 +16,14 @@ public class PLCReceiveItemGeneric<T> : PLCReceiveItem where T : struct, IEquata
         base.ChangeState(value);
         if (value != null)
         {
-            var tempValue = (T)value;
-            if (!EqualityComparer<T>.Default.Equals(tempValue, _value_t))
+            if(value is T)
             {
-                _value_t = tempValue;
-                OnGenericValueReceive?.Invoke(tempValue);
+                var tempValue = (T)value;
+                if (!EqualityComparer<T>.Default.Equals(tempValue, _value_t))
+                {
+                    _value_t = tempValue;
+                    OnGenericValueReceive?.Invoke(tempValue);
+                }
             }
         }
     }
@@ -28,7 +31,7 @@ public class PLCReceiveItemGeneric<T> : PLCReceiveItem where T : struct, IEquata
 
 public class PLCReceiveItem : MonoBehaviour
 {
-    public PLCDataItem data;
+    public string data;
     public UnityEvent<object?> OnValueReceive;
 
     public virtual void ChangeState(object? value)
