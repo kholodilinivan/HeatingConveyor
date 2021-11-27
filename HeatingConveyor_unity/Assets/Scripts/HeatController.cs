@@ -38,9 +38,17 @@ public class HeatController : MonoBehaviour
     {
         var delta = 0f;
         if (heatState)
+        {
+            var b = heat.Evaluate(currentTemperature);
+            // Debug.Log(b);
             delta += heat.Evaluate(currentTemperature);
+        }
         if (coldState)
+        {
+            var a = cold.Evaluate(currentTemperature); 
+            // Debug.Log(a);
             delta += cold.Evaluate(currentTemperature);
+        }
         delta += none.Evaluate(currentTemperature);
 
         currentTemperature = Mathf.Clamp(currentTemperature + delta * speed, 0, 1);
